@@ -96,12 +96,3 @@ def createDEL(driver):
     return driver
 
 
-#driver.close() #closes tab
-#driver.quit #closes browser
-
-#HTML hierarchy, first class, then name, then worst scenarios class name but not recommended
-
-
-#def main():
-#if __name__ == "__main__":
-    #main()
