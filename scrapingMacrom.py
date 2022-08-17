@@ -37,6 +37,7 @@ def createDEL(driver):
         waitb.until(EC.element_to_be_clickable((By.XPATH, "//button[@class='btn btn-primary highlight btn-sm']"))).click()
 
         # click the asset dropdown
+        #testing
         time.sleep(1)
         waitb.until(EC.element_to_be_clickable((By.XPATH, "//div[@class='ng-select-container ng-has-value']"))).click()
 
