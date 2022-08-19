@@ -11,7 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-import scrapingMacrom as sm
+import scrapingDEL as sm
 import utils.str as str_utils 
 from utils.logging_setup import setup_logger
 
@@ -28,10 +28,12 @@ dns = json_config.get("dns")
 # driver set up 
 driver_path = json_config.get("chrome_driver_path")
 driver = webdriver.Chrome(driver_path)
+# files path set up
+testing_files_path = json_config.get("testing_files_path")
 
 
 
-def main(dns: str, driver):
+def main(dns: str, driver, testing_files_path: str):
     """
     function to run macromBots 
 
@@ -51,7 +53,7 @@ def main(dns: str, driver):
         driver = sm.updateDEL(driver)
 
         #Test the attach file functionallity
-        driver = sm.attachDelFiles(driver)
+        driver = sm.attachDelFiles(driver, testing_files_path)
 
         time.sleep(10)
     except Exception as e:
@@ -60,4 +62,4 @@ def main(dns: str, driver):
 
 
 if __name__ == "__main__":
-    main(dns, driver)
+    main(dns, driver, testing_files_path)
