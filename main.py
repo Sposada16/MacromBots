@@ -9,7 +9,8 @@ import scrapingMacrom
 
 
 def main():
-    driver = scrapingMacrom.setChromeDriver()
+    path = "C:\Program Files (x86)\chromedriver.exe"
+    driver = webdriver.Chrome(path)
 
     #Test for mpc
     driver.get("https://mpc-dev.macrom.online/#/pages/login")
@@ -21,6 +22,9 @@ def main():
 
     #Test the updating event functionallity
     driver = scrapingMacrom.updateDEL(driver)
+
+    #Test the attach file functionallity
+    driver = scrapingMacrom.attachDelFiles(driver)
 
     time.sleep(10)
 

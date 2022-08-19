@@ -6,13 +6,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-def setChromeDriver():
-    #Chrome driver information
-    path = "C:\Program Files (x86)\chromedriver.exe"
-    driver = webdriver.Chrome(path)
-
-    return driver
-
 def logIn(driver):
     #Log in to the application
     time.sleep(5)
@@ -116,3 +109,21 @@ def updateDEL(driver):
     return driver
 
 
+def attachDelFiles(driver):
+
+    #attach files to created event
+    try:
+        waitb = WebDriverWait(driver, 20)
+
+        time.sleep(10)
+        #Go to files tab
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//ul[@role='tablist']/li[3]"))).click()
+
+        # upload test file
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//ul[@role='tablist']/li[3]"))).click()
+
+        print("File updated successfully")
+    except Exception as ex:
+        print(ex)
+
+    return driver
