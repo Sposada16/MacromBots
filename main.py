@@ -55,6 +55,9 @@ def main(dns: str, driver, testing_files_path: str):
         #Test the attach file functionallity
         driver = sm.attachDelFiles(driver, testing_files_path)
 
+        #Test the comments
+        driver = sm.addComments(driver)
+
         time.sleep(10)
     except Exception as e:
         logging.error("An error has occured.")

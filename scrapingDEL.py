@@ -135,7 +135,33 @@ def attachDelFiles(driver, testing_files_path):
         time.sleep(2)
         waitb.until(EC.element_to_be_clickable((By.XPATH, "//button[@class='btn btn-md pull-right btn-danger']"))).click()
 
-        print("File updated successfully")
+        print("File uploaded successfully")
+    except Exception as ex:
+        print(ex)
+
+    return driver
+
+def addComments(driver):
+
+    #add comments to created event
+    try:
+        waitb = WebDriverWait(driver, 20)
+
+        #Go to files tab
+        time.sleep(10)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//ul[@role='tablist']/li[4]"))).click()
+
+        # upload test file
+        time.sleep(2)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//textarea[@formcontrolname='comment']"))).send_keys("Testing in process.....")
+
+        # upload test file
+        time.sleep(2)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit']"))).click()
+
+        ## Validation here
+
+        print("Comment added successfully")
     except Exception as ex:
         print(ex)
 
