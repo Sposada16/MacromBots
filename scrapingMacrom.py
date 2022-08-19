@@ -96,4 +96,23 @@ def createDEL(driver):
 
     return driver
 
+def updateDEL(driver):
+
+    #update the created event
+    try:
+        waitb = WebDriverWait(driver, 20)
+
+        time.sleep(1)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//input[@formcontrolname='callerContactName']"))).send_keys("Test callee")
+
+        # click highlighted value
+        time.sleep(1)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//button[@class='btn btn-sm btn-primary highlight event_btn_save']"))).click()
+
+        print("Event updated successfully")
+    except Exception as ex:
+        print(ex)
+
+    return driver
+
 
