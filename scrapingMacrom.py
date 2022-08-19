@@ -6,6 +6,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
+
 def logIn(driver):
     #Log in to the application
     time.sleep(5)
