@@ -1,0 +1,7 @@
+{
+    "dns": "https://mpc-dev.macrom.online",
+    "chrome_driver_path": "C:\\Program Files (x86)\\chromedriver.exe",
+    "testing_files_path": "",
+    "create_event": 0,
+    "attach_file": 1
+}

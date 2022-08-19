@@ -1,29 +1,63 @@
 #import libraries
+import time
+import json
+import logging 
+
+from pathlib import Path 
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
-import scrapingMacrom
+
+import scrapingMacrom as sm
+import utils.str as str_utils 
+from utils.logging_setup import setup_logger
+
+# set up logging 
+setup_logger(env="production")
+
+logging.info("Reading config stuff")
+
+# reading config file stuff 
+json_config = str_utils.read_json(file_path="config.json")
+
+# get dns name 
+dns = json_config.get("dns")
+# driver set up 
+driver_path = json_config.get("chrome_driver_path")
+driver = webdriver.Chrome(driver_path)
 
 
-def main():
-    driver = scrapingMacrom.setChromeDriver()
 
-    #Test for mpc
-    driver.get("https://mpc-dev.macrom.online/#/pages/login")
-    driver = scrapingMacrom.logIn(driver)
+def main(dns: str, driver):
+    """
+    function to run macromBots 
 
-    driver.get("https://mpc-dev.macrom.online/#/event-log")
-    #Test the creating event functionality
-    driver = scrapingMacrom.createDEL(driver)
+    dns: the name 
+    driver: chrome driver
+    """
+    try:
+        #Test for mpc
+        driver.get(f"{dns}/#/pages/login")
+        driver = sm.logIn(driver)
 
-    #Test the updating event functionallity
-    driver = scrapingMacrom.updateDEL(driver)
+        driver.get(f"{dns}/#/event-log")
+        #Test the creating event functionality
+        driver = sm.createDEL(driver)
 
-    time.sleep(10)
+        #Test the updating event functionallity
+        driver = sm.updateDEL(driver)
+
+        #Test the attach file functionallity
+        driver = sm.attachDelFiles(driver)
+
+        time.sleep(10)
+    except Exception as e:
+        logging.error("An error has occured.")
+        logging.error(e)
 
 
 if __name__ == "__main__":
-    main()
+    main(dns, driver)
