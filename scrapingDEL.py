@@ -110,18 +110,30 @@ def updateDEL(driver):
     return driver
 
 
-def attachDelFiles(driver):
+def attachDelFiles(driver, testing_files_path):
 
     #attach files to created event
     try:
         waitb = WebDriverWait(driver, 20)
 
-        time.sleep(10)
         #Go to files tab
+        time.sleep(10)
         waitb.until(EC.element_to_be_clickable((By.XPATH, "//ul[@role='tablist']/li[3]"))).click()
 
         # upload test file
-        waitb.until(EC.element_to_be_clickable((By.XPATH, "//ul[@role='tablist']/li[3]"))).click()
+        time.sleep(2)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//input[@type='file']"))).send_keys(testing_files_path)
+
+        # upload test file
+        time.sleep(2)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//button[@class='btn btn-sm btn-primary uploadBtn']"))).click()
+
+        # upload test file
+        time.sleep(5)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//div[@class='checkbox']/input"))).click()
+        
+        time.sleep(2)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//button[@class='btn btn-md pull-right btn-danger']"))).click()
 
         print("File updated successfully")
     except Exception as ex:
