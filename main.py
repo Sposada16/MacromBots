@@ -31,7 +31,10 @@ driver_path = json_config.get("chrome_driver_path")
 driver = webdriver.Chrome(driver_path)
 # files path set up
 testing_files_path = json_config.get("testing_files_path")
-
+# category set up
+shift_report_category = json_config.get("shift_report_category")
+# report set up
+report_name = json_config.get("report")
 
 
 def main(dns: str, driver, testing_files_path: str):
@@ -66,6 +69,9 @@ def main(dns: str, driver, testing_files_path: str):
 
                 #Test the comments
                 driver = sm.addComments(driver)
+
+                #Test Shift Report
+                driver = sm.shiftReport(driver, shift_report_category, report_name)
 
                 time.sleep(10)
 

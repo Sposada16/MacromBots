@@ -1,5 +1,7 @@
 {
     "dns": "https://mpc-dev.macrom.online",
     "chrome_driver_path": "C:\\Program Files (x86)\\chromedriver.exe",
-    "testing_files_path": "C:\\TestingFiles\\testfile.docx"
+    "testing_files_path": "C:\\TestingFiles\\testfile.docx",
+    "shift_report_category": "CPM",
+    "report": "Daily Categories Report"
 }

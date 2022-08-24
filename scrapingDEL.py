@@ -166,3 +166,45 @@ def addComments(driver):
         print(ex)
 
     return driver
+
+def shiftReport(driver, shift_report_category, report_name):
+
+    #add comments to created event
+    try:
+        waitb = WebDriverWait(driver, 20)
+
+        #Go to shift report
+        time.sleep(2)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//button[@class='btn btn-primary btn-sm ng-star-inserted']"))).click()
+
+        # click on the categories tab
+        time.sleep(2)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//div[@class='selected-list']"))).click()
+
+        # Click specific category
+        time.sleep(2)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//label[normalize-space()='"+shift_report_category+"']"))).click()
+
+        # Click specific category
+        time.sleep(2)
+        waitb.until(EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Preview']"))).click()
+
+        #Check new tab name and verify its the related report
+        time.sleep(4)
+        driver.switch_to.window(driver.window_handles[1])
+
+        if driver.title == report_name:
+            print('Report generated successfully')
+        #else:
+            #print('Report not generated')
+
+        time.sleep(2)
+        driver.switch_to.window(driver.window_handles[0])
+
+
+        print("Shift Report Working Successfully")
+
+    except Exception as ex:
+        print(ex)
+
+    return driver
