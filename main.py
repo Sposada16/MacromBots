@@ -13,6 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import scrapingDEL as sm
 import utils.str as str_utils 
+import utils.utility as utils
 from utils.logging_setup import setup_logger
 
 # set up logging 
@@ -40,28 +41,46 @@ def main(dns: str, driver, testing_files_path: str):
     dns: the name 
     driver: chrome driver
     """
-    try:
-        #Test for mpc
-        driver.get(f"{dns}/#/pages/login")
-        driver = sm.logIn(driver)
+    while True:     
+        try:
+            #Test for mpc
+            driver.get(f"{dns}/#/pages/login")
+            driver = sm.logIn(driver)
 
-        driver.get(f"{dns}/#/event-log")
-        #Test the creating event functionality
-        driver = sm.createDEL(driver)
+            options = utils.create_menu()
+            for entry in options: 
+                print (entry, options[entry])
 
-        #Test the updating event functionallity
-        driver = sm.updateDEL(driver)
+            print("Please Select:")
+            selection = input() 
+            if selection == '1': 
+                driver.get(f"{dns}/#/event-log")
+                #Test the creating event functionality
+                driver = sm.createDEL(driver)
 
-        #Test the attach file functionallity
-        driver = sm.attachDelFiles(driver, testing_files_path)
+                #Test the updating event functionallity
+                driver = sm.updateDEL(driver)
 
-        #Test the comments
-        driver = sm.addComments(driver)
+                #Test the attach file functionallity
+                driver = sm.attachDelFiles(driver, testing_files_path)
 
-        time.sleep(10)
-    except Exception as e:
-        logging.error("An error has occured.")
-        logging.error(e)
+                #Test the comments
+                driver = sm.addComments(driver)
+
+                time.sleep(10)
+
+            elif selection == '2':
+                print("Not available for the moment")
+            elif selection == '3':
+                print("Not available for the moment")
+            elif selection == '4':
+                break
+
+            else:
+                print("Invalid Option")
+        except Exception as e:
+            logging.error("An error has occured.")
+            logging.error(e)
 
 
 if __name__ == "__main__":
