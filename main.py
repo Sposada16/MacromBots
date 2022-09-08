@@ -12,6 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 import scrapingDEL as sm
+import scrapingOUT as so
 import utils.str as str_utils 
 import utils.utility as utils
 from utils.logging_setup import setup_logger
@@ -78,7 +79,19 @@ def main(dns: str, driver, testing_files_path: str):
             elif selection == '2':
                 print("Not available for the moment")
             elif selection == '3':
-                print("Not available for the moment")
+                time.sleep(2)
+                driver.get(f"{dns}/#/outage-schedule")
+                
+                #Test the creating  outages
+                time.sleep(2)
+                driver = so.createOut(driver)
+                #UpdateOut
+                time.sleep(2)
+                driver = so.updateOut(driver)
+
+                time.sleep(2)
+                driver = so.StationOut(driver)
+
             elif selection == '4':
                 break
 
