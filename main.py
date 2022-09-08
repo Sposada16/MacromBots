@@ -12,6 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 import scrapingDEL as sm
+import scrapingSM as ss
 import scrapingOUT as so
 import utils.str as str_utils 
 import utils.utility as utils
@@ -45,12 +46,11 @@ def main(dns: str, driver, testing_files_path: str):
     dns: the name 
     driver: chrome driver
     """
+    #Test for mpc
+    driver.get(f"{dns}/#/pages/login")
+    driver = sm.logIn(driver)
     while True:     
         try:
-            #Test for mpc
-            driver.get(f"{dns}/#/pages/login")
-            driver = sm.logIn(driver)
-
             options = utils.create_menu()
             for entry in options: 
                 print (entry, options[entry])
@@ -77,7 +77,16 @@ def main(dns: str, driver, testing_files_path: str):
                 time.sleep(10)
 
             elif selection == '2':
-                print("Not available for the moment")
+                driver.get(f"{dns}/#/enhanced-shift")
+                #Test the creating shift functionallity
+                driver = ss.createShift(driver)
+
+                driver = ss.checkinForm(driver)
+
+                driver = ss.checkoutForm(driver)
+
+                driver = ss.shiftHandover(driver)
+                
             elif selection == '3':
                 time.sleep(2)
                 driver.get(f"{dns}/#/outage-schedule")
